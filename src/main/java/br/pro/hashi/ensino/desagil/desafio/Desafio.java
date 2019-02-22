@@ -20,5 +20,16 @@ public class Desafio {
         cpuPlayer.row = 8;
         cpuPlayer.col = 18;
         cpuPlayer.board = board;
+
+        for (int i = 0; i < board.numRows; i++){
+            for (int j = 0; j < board.numCols; j++){
+                if (board.wall[i][j]) {
+                    System.out.print("#");
+                }else{
+                    System.out.print(" ");
+                }
+
+            }System.out.println("");
+        }
     }
 }
