@@ -1,7 +1,6 @@
 package br.pro.hashi.ensino.desagil.desafio;
 
-import br.pro.hashi.ensino.desagil.desafio.model.Board;
-import br.pro.hashi.ensino.desagil.desafio.model.Model;
+import br.pro.hashi.ensino.desagil.desafio.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +46,33 @@ public class View extends JPanel {
     // Você nunca deve chamar esse método diretamente. O certo é chamar o método repaint.
     @Override
     public void paintComponent(Graphics g) {
-        System.out.println("paintComponent");
+
+        Model model = this.model;
+        Board board = model.getBoard();
+        Target target = model.getTarget();
+        CpuPlayer cpu = model.getCpuPlayer();
+        HumanPlayer human = model.getHumanPlayer();
+
+        int col = board.getNumCols();
+        int row = board.getNumRows();
+
+        for (int j = 0; j < col; j++){
+            for (int i = 0; i < row; i++){
+                if (this.model.getBoard().isWall(i,j) == true){
+                    g.setColor(Color.black);
+                    g.fillRect(CELL_SIZE*j, CELL_SIZE*i, CELL_SIZE, CELL_SIZE);
+                }else{
+                    g.setColor(Color.white);
+                    g.fillRect(CELL_SIZE*j, CELL_SIZE*i, CELL_SIZE, CELL_SIZE);
+                }
+
+
+            }
+        }
+        g.drawImage(targetImage, target.getCol()*CELL_SIZE, target.getRow()*CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
+        g.drawImage(humanPlayerImage, human.getCol()*CELL_SIZE, human.getRow()*CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
+        g.drawImage(cpuPlayerImage, cpu.getCol()*CELL_SIZE, cpu.getRow()*CELL_SIZE, CELL_SIZE, CELL_SIZE, this);
+
 
         // Linha necessária para evitar atrasos
         // de renderização em sistemas Linux.
