@@ -35,19 +35,24 @@ public class Controller implements KeyListener, ActionListener {
         // Para agir de acordo com a tecla que foi pressionada, comparamos o key code do evento com as
         // constantes disponíveis na classe KeyEvent. Uma lista dessas constantes pode ser vista em
         // https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/event/KeyEvent.html.
-        switch (event.getKeyCode()) {
-            case KeyEvent.VK_UP:
-                humanPlayer.moveUp();
-                break;
-            case KeyEvent.VK_RIGHT:
-                humanPlayer.moveRight();
-                break;
-            case KeyEvent.VK_DOWN:
-                humanPlayer.moveDown();
-                break;
-            case KeyEvent.VK_LEFT:
-                humanPlayer.moveLeft();
-                break;
+        if (model.getWinner() == null) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.VK_UP:
+                    humanPlayer.moveUp();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    humanPlayer.moveRight();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    humanPlayer.moveDown();
+                    break;
+                case KeyEvent.VK_LEFT:
+                    humanPlayer.moveLeft();
+                    break;
+            }
+        }
+        if (model.getHumanPlayer().getCol() == model.getTarget().getCol() & model.getHumanPlayer().getRow() == model.getTarget().getRow()) {
+            model.setWinner(model.getHumanPlayer());
         }
 
         view.repaint();
@@ -64,9 +69,14 @@ public class Controller implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        CpuPlayer cpuPlayer = model.getCpuPlayer();
+        if (model.getWinner() == null) {
+            CpuPlayer cpuPlayer = model.getCpuPlayer();
 
-        cpuPlayer.move();
+            cpuPlayer.move();
+        }
+        if (model.getCpuPlayer().getCol() == model.getTarget().getCol() & model.getCpuPlayer().getRow() == model.getTarget().getRow()) {
+            model.setWinner(model.getCpuPlayer());
+        }
 
         view.repaint();
     }

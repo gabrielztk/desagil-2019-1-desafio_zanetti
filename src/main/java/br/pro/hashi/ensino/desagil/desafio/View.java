@@ -65,6 +65,21 @@ public class View extends JPanel {
             }
         }
 
+        if (model.getWinner() != null) {
+
+            int fontSize = 20;
+
+            g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
+
+            g.setColor(Color.red);
+
+            if (model.getWinner() == model.getHumanPlayer()) {
+                g.drawString("player venceu", 10, 20);
+            } else {
+                g.drawString("computador venceu", 10, 20);
+            }
+        }
+
         elementsToImages.forEach((element, image) -> {
             int row = element.getRow();
             int col = element.getCol();
